@@ -93,10 +93,14 @@ requirement.
 
 Required before this supports the claims in `paper.md`:
 
-- [ ] **Validate against published worked examples.** Reproduce the weights
-      from Chang (1996) and Buckley (1985) and the flows from Brans & Vincke
-      (1985) to a stated tolerance. This is the strongest correctness
-      evidence a software paper can offer, and none of it exists yet.
+- [ ] **Validate against published worked examples.** `tests/test_published.py`
+      is staged with the structure for Chang (1996), Buckley (1985) and
+      Brans & Vincke (1985), but the expected values are `None` and the
+      tests skip. Transcribe the numbers from the printed tables and record
+      the page in each `*_SOURCE` constant. They were left unfilled on
+      purpose — a validation test populated from memory looks like evidence
+      without being any. This is the strongest correctness evidence a
+      software paper can offer and it is the one thing still missing.
 - [ ] **Replace `load_demo()`.** It is synthetic data invented for this
       scaffold, not a benchmark. The paper's example needs a *published*
       decision problem with a known ranking.
@@ -110,6 +114,18 @@ Required before this supports the claims in `paper.md`:
 CI runs the test suite on Python 3.10–3.13 (plus Windows on 3.12) and
 executes `examples/listing.py`, so the code listing printed in the paper
 cannot silently drift from the API.
+
+### What the tests currently establish
+
+| File | What it checks | Strength |
+| --- | --- | --- |
+| `test_fahp.py`, `test_promethee.py`, `test_pipeline.py` | Invariants and hand-computed cases: flows sum to zero, weights sum to one, each preference function on a two-alternative problem | Catches gross errors |
+| `test_reference.py` | Differential agreement with loop-based reference implementations written from the formulas, plus closed forms derivable by hand | Catches vectorisation, broadcasting and sign errors |
+| `test_published.py` | Agreement with the printed results of the source papers | **Not yet active** |
+
+The first two establish that the code computes consistently what this
+implementation *believes* the formulas to be. Only the third establishes that
+the belief is right.
 
 ## References
 
