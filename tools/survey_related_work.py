@@ -97,6 +97,66 @@ def metadata(dist_name):
     return fields
 
 
+# Named functions worth reading properly once name matching has found them.
+# Name matching says a capability is present; the signature and docstring
+# say what it actually is.
+DEEP_DIVE = {
+    "pyDecision": [
+        "fuzzy_ahp_method", "ahp_method", "promethee_ii", "promethee_i",
+    ],
+    "pymcdm": ["PROMETHEE_II", "AHP", "param_sensitivity"],
+    "skcriteria": [],
+}
+
+
+def deep_dive(import_name, wanted):
+    """Print the signature and docstring head of each named object."""
+    if not wanted:
+        return
+    import inspect
+
+    try:
+        root = importlib.import_module(import_name)
+    except Exception as exc:
+        print(f"  cannot import {import_name}: {exc!r}")
+        return
+
+    found = {}
+    modules = [root]
+    paths = getattr(root, "__path__", None)
+    if paths:
+        for info in pkgutil.walk_packages(paths, prefix=root.__name__ + "."):
+            try:
+                modules.append(importlib.import_module(info.name))
+            except Exception:
+                continue
+
+    for module in modules:
+        for name in wanted:
+            if name in found:
+                continue
+            obj = getattr(module, name, None)
+            if obj is not None and not inspect.ismodule(obj):
+                found[name] = (module.__name__, obj)
+
+    for name in wanted:
+        if name not in found:
+            print(f"\n  {name}: NOT FOUND as a callable")
+            continue
+        where, obj = found[name]
+        try:
+            signature = str(inspect.signature(obj))
+        except (TypeError, ValueError):
+            signature = "(signature unavailable)"
+        print(f"\n  {where}.{name}{signature}")
+        doc = inspect.getdoc(obj) or ""
+        if doc:
+            for line in doc.splitlines()[:12]:
+                print(f"      {line}")
+        else:
+            print("      (no docstring)")
+
+
 def main():
     print(f"python {sys.version.split()[0]}")
     print("=" * 78)
@@ -154,6 +214,27 @@ def main():
     print("\nA 'BOTH' above means the Related Work paragraph must concede that")
     print("package explicitly. Name matching is a coarse instrument: read the")
     print("hit lists, then read that package's docs before writing the prose.")
+
+    print("\n" + "=" * 78)
+    print("DEEP DIVE -- signatures and docstrings of the relevant callables")
+    print("=" * 78)
+    for import_name, wanted in DEEP_DIVE.items():
+        print(f"\n### {import_name}")
+        print("-" * 78)
+        deep_dive(import_name, wanted)
+
+    print("\n" + "=" * 78)
+    print("scikit-criteria: what it does provide")
+    print("-" * 78)
+    try:
+        skc = importlib.import_module("skcriteria")
+        for info in pkgutil.iter_modules(skc.__path__):
+            print(f"  skcriteria.{info.name}")
+        agg = importlib.import_module("skcriteria.agg")
+        print("\n  skcriteria.agg exports:")
+        print("   ", ", ".join(sorted(n for n in dir(agg) if not n.startswith("_"))))
+    except Exception as exc:
+        print(f"  could not enumerate: {exc!r}")
 
 
 if __name__ == "__main__":
