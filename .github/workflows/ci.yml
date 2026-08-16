@@ -50,7 +50,7 @@ jobs:
         run: python examples/listing.py
 
   figures:
-    name: figure 1
+    name: figures
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -69,10 +69,13 @@ jobs:
       - name: Generate Figure 1
         run: python examples/figure1.py
 
-      - name: Upload figure
+      - name: Run the scaling experiment
+        run: python examples/scaling.py
+
+      - name: Upload figures
         uses: actions/upload-artifact@v4
         with:
-          name: figure1
+          name: figures
           path: figures/
           if-no-files-found: error
 

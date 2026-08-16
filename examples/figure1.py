@@ -49,14 +49,7 @@ from pyfap import FAHP, DecisionPipeline, Promethee
 from pyfap.datasets import load_demo
 from pyfap.preprocessing import minmax_normalize
 
-# Okabe & Ito (2008), "Color Universal Design" -- safe under deuteranopia,
-# protanopia and tritanopia.
-BLUE = "#0072B2"
-ORANGE = "#E69F00"
-
-INK = "#222222"
-MUTED = "#666666"
-GRID = "#DDDDDD"
+from _style import BLUE, GRID, INK, MUTED, ORANGE, SEQUENTIAL, style_axis
 
 METHODS = [
     ("extent_analysis", "Extent analysis (Chang)", BLUE),
@@ -86,18 +79,6 @@ def build(problem, method):
         )
     notes = [str(w.message) for w in caught]
     return result, notes
-
-
-def style_axis(ax):
-    """Recessive frame: the data should be the darkest thing on the panel."""
-    for side in ("top", "right"):
-        ax.spines[side].set_visible(False)
-    for side in ("left", "bottom"):
-        ax.spines[side].set_color(MUTED)
-        ax.spines[side].set_linewidth(0.8)
-    ax.tick_params(colors=MUTED, labelsize=9, length=3, width=0.8)
-    for label in ax.get_xticklabels() + ax.get_yticklabels():
-        label.set_color(INK)
 
 
 def panel_net_flows(ax, problem, results):
@@ -253,7 +234,7 @@ def main():
     for i, (key, name, _) in enumerate(METHODS):
         ax = fig.add_subplot(grid[1, i])
         image = panel_stability(
-            ax, problem, reports[key], name, "Blues", show_ylabel=(i == 0)
+            ax, problem, reports[key], name, SEQUENTIAL, show_ylabel=(i == 0)
         )
 
     bar = fig.colorbar(image, ax=fig.axes[1:], fraction=0.030, pad=0.02)

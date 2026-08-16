@@ -53,6 +53,12 @@ addopts = "-q"
 [tool.ruff]
 line-length = 88
 
+[tool.ruff.lint.isort]
+# Pin the classification so the example scripts, which import a sibling
+# module by bare name, sort deterministically.
+known-first-party = ["pyfap"]
+known-local-folder = ["_style"]
+
 [tool.ruff.lint.per-file-ignores]
 # The block reproducing the paper listing accesses result attributes without
 # doing anything with them, to show what the result object exposes. That is
