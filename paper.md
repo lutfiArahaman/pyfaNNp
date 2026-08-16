@@ -99,7 +99,7 @@ analysis cannot be re-executed from a single command, intermediate results
 are not retained, and the sensitivity of the final ranking to the expert
 judgements that produced the weights is rarely examined — even though
 rank reversal under small weight perturbations is a well-documented property
-of outranking methods [@ADD_RANK_REVERSAL_REF].
+of outranking methods [@DeKeyser1996].
 
 pyFAP addresses this gap by providing a tool in which the three stages share
 one data structure and one call. Because the pipeline is a single object,
@@ -119,7 +119,7 @@ focus is on providing methods as independent routines rather than on
 composing them. `pymcdm` and `scikit-criteria` offer broad collections of
 normalisations, weighting schemes and ranking methods, and `pyDecision`
 implements a wide range of AHP and PROMETHEE variants including fuzzy
-formulations [@ADD_PYMCDM; @ADD_SCIKIT_CRITERIA; @ADD_PYDECISION]. These are
+formulations [@Wieckowski2023; @Cabral2016; @Pereira2022]. These are
 mature and well-tested libraries, and pyFAP does not attempt to replace them.
 They do, however, leave the analyst to wire the stages together: there is no
 shared representation carried from weight derivation through to outranking,
@@ -136,7 +136,7 @@ A reviewer will run this check.
 
 Fuzzy logic libraries such as `scikit-fuzzy` and `simpful` provide general
 machinery for membership functions and fuzzy inference
-[@ADD_SKFUZZY; @ADD_SIMPFUL]. They are not decision-analytic tools: they
+[@Warner2019; @Spolaor2020]. They are not decision-analytic tools: they
 offer no weight derivation from pairwise comparisons and no consistency
 diagnostics, both of which are required before fuzzy judgements can be used
 as criterion weights.
@@ -334,27 +334,16 @@ contributions to the field.
 # References
 
 <!--
-Bibliography keys used above that you must add to paper.bib:
+Entries live in paper.bib. Two things remain there:
 
-  Chang1996            Chang, D.-Y. (1996) Applications of the extent analysis
-                       method on fuzzy AHP. EJOR 95(3), 649-655.
-  Buckley1985          Buckley, J.J. (1985) Fuzzy hierarchical analysis.
-                       Fuzzy Sets and Systems 17(3), 233-247.
-  Brans1985            Brans, J.P. & Vincke, P. (1985) A preference ranking
-                       organisation method. Management Science 31(6), 647-656.
-  Brans1986            Brans, J.P., Vincke, P. & Mareschal, B. (1986) How to
-                       select and how to rank projects: the PROMETHEE method.
-                       EJOR 24(2), 228-238.
-  Harris2020           NumPy. Nature 585, 357-362.
-  Pedregosa2011        scikit-learn. JMLR 12, 2825-2830.
-  McKinney2010         pandas. Proc. SciPy 2010.
-  Paszke2019           PyTorch. NeurIPS 2019.
-  ADD_PYMCDM           pymcdm - locate the SoftwareX paper.
-  ADD_SCIKIT_CRITERIA  scikit-criteria - locate the citation.
-  ADD_PYDECISION       pyDecision - locate the citation.
-  ADD_SKFUZZY          scikit-fuzzy.
-  ADD_SIMPFUL          simpful.
-  ADD_RANK_REVERSAL_REF  a rank-reversal reference for outranking methods.
+  1. Every DOI needs confirming. JOSS checks them automatically.
+  2. Six entries carry a `note = {UNVERIFIED ...}` field, which renders
+     visibly in the typeset draft so it cannot be missed. Five are the
+     software comparisons behind Related Work; the sixth is the rank-reversal
+     reference. Install each package, take the citation the project itself
+     asks for, and delete the note.
 
-Verify every DOI. JOSS checks them.
+Uncited entries currently in the bib, available if wanted: Saaty1980 and
+vanLaarhoven1983 for the AHP and fuzzy-AHP lineage, Hunter2007 for
+matplotlib if the figures warrant a citation in the venue's style.
 -->

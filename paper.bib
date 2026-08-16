@@ -1,0 +1,240 @@
+% ===========================================================================
+% Bibliography for paper.md
+%
+% VERIFY EVERY DOI BEFORE SUBMISSION. JOSS checks them automatically and
+% SoftwareX copy-editing will too. The entries below are split into two
+% groups:
+%
+%   1. Entries recorded with full details. Author, title, venue, volume and
+%      pages are given as written; still confirm each DOI resolves.
+%
+%   2. Entries marked with a `note = {UNVERIFIED ...}` field. These are
+%      software citations whose canonical reference could not be confirmed
+%      here. The note is deliberately left in so it renders visibly in the
+%      typeset draft and cannot slip through unnoticed. Replace the entry
+%      with the one the project itself asks to be cited -- usually in its
+%      README or CITATION.cff -- and delete the note.
+% ===========================================================================
+
+
+% --------------------------------------------------------------------------
+% Analytic hierarchy process and its fuzzy extensions
+% --------------------------------------------------------------------------
+
+@book{Saaty1980,
+  author    = {Saaty, Thomas L.},
+  title     = {The Analytic Hierarchy Process: Planning, Priority Setting,
+               Resource Allocation},
+  publisher = {McGraw-Hill},
+  address   = {New York},
+  year      = {1980}
+}
+
+@article{vanLaarhoven1983,
+  author  = {van Laarhoven, P. J. M. and Pedrycz, W.},
+  title   = {A fuzzy extension of {S}aaty's priority theory},
+  journal = {Fuzzy Sets and Systems},
+  volume  = {11},
+  number  = {1--3},
+  pages   = {229--241},
+  year    = {1983},
+  doi     = {10.1016/S0165-0114(83)80082-7}
+}
+
+@article{Buckley1985,
+  author  = {Buckley, J. J.},
+  title   = {Fuzzy hierarchical analysis},
+  journal = {Fuzzy Sets and Systems},
+  volume  = {17},
+  number  = {3},
+  pages   = {233--247},
+  year    = {1985},
+  doi     = {10.1016/0165-0114(85)90090-9}
+}
+
+@article{Chang1996,
+  author  = {Chang, Da-Yong},
+  title   = {Applications of the extent analysis method on fuzzy {AHP}},
+  journal = {European Journal of Operational Research},
+  volume  = {95},
+  number  = {3},
+  pages   = {649--655},
+  year    = {1996},
+  doi     = {10.1016/0377-2217(95)00300-2}
+}
+
+
+% --------------------------------------------------------------------------
+% PROMETHEE
+% --------------------------------------------------------------------------
+
+@article{Brans1985,
+  author  = {Brans, J. P. and Vincke, Ph.},
+  title   = {A Preference Ranking Organisation Method: The {PROMETHEE} Method
+             for Multiple Criteria Decision-Making},
+  journal = {Management Science},
+  volume  = {31},
+  number  = {6},
+  pages   = {647--656},
+  year    = {1985},
+  doi     = {10.1287/mnsc.31.6.647}
+}
+
+@article{Brans1986,
+  author  = {Brans, J. P. and Vincke, Ph. and Mareschal, B.},
+  title   = {How to select and how to rank projects: The {PROMETHEE} method},
+  journal = {European Journal of Operational Research},
+  volume  = {24},
+  number  = {2},
+  pages   = {228--238},
+  year    = {1986},
+  doi     = {10.1016/0377-2217(86)90044-5}
+}
+
+% Rank reversal in outranking methods. Cited in the Statement of Need to
+% support the claim that small weight changes can reorder the result.
+% VERIFY: confirm this is the reference you want. De Keyser and Peeters is
+% specifically about PROMETHEE; Wang and Triantaphyllou (Omega, 2008,
+% "Ranking irregularities when evaluating alternatives by using some ELECTRE
+% methods") is the broader outranking treatment if you prefer it.
+@article{DeKeyser1996,
+  author  = {De Keyser, Wim and Peeters, Peter},
+  title   = {A note on the use of {PROMETHEE} multicriteria methods},
+  journal = {European Journal of Operational Research},
+  volume  = {89},
+  number  = {3},
+  pages   = {457--461},
+  year    = {1996},
+  doi     = {10.1016/0377-2217(94)00307-6},
+  note    = {UNVERIFIED -- confirm volume, pages and DOI before submission}
+}
+
+
+% --------------------------------------------------------------------------
+% Scientific Python stack
+% --------------------------------------------------------------------------
+
+@article{Harris2020,
+  author  = {Harris, Charles R. and Millman, K. Jarrod and
+             van der Walt, St{\'e}fan J. and Gommers, Ralf and
+             Virtanen, Pauli and Cournapeau, David and Wieser, Eric and
+             Taylor, Julian and Berg, Sebastian and Smith, Nathaniel J. and
+             Kern, Robert and Picus, Matti and Hoyer, Stephan and
+             van Kerkwijk, Marten H. and Brett, Matthew and Haldane, Allan and
+             del R{\'i}o, Jaime Fern{\'a}ndez and Wiebe, Mark and
+             Peterson, Pearu and G{\'e}rard-Marchant, Pierre and
+             Sheppard, Kevin and Reddy, Tyler and Weckesser, Warren and
+             Abbasi, Hameer and Gohlke, Christoph and Oliphant, Travis E.},
+  title   = {Array programming with {NumPy}},
+  journal = {Nature},
+  volume  = {585},
+  number  = {7825},
+  pages   = {357--362},
+  year    = {2020},
+  doi     = {10.1038/s41586-020-2649-2}
+}
+
+@article{Pedregosa2011,
+  author  = {Pedregosa, F. and Varoquaux, G. and Gramfort, A. and
+             Michel, V. and Thirion, B. and Grisel, O. and Blondel, M. and
+             Prettenhofer, P. and Weiss, R. and Dubourg, V. and
+             Vanderplas, J. and Passos, A. and Cournapeau, D. and
+             Brucher, M. and Perrot, M. and Duchesnay, E.},
+  title   = {Scikit-learn: Machine Learning in {P}ython},
+  journal = {Journal of Machine Learning Research},
+  volume  = {12},
+  pages   = {2825--2830},
+  year    = {2011}
+}
+
+@inproceedings{McKinney2010,
+  author    = {McKinney, Wes},
+  title     = {Data Structures for Statistical Computing in {P}ython},
+  booktitle = {Proceedings of the 9th Python in Science Conference},
+  pages     = {56--61},
+  year      = {2010},
+  doi       = {10.25080/Majora-92bf1922-00a}
+}
+
+@article{Hunter2007,
+  author  = {Hunter, John D.},
+  title   = {Matplotlib: A 2{D} Graphics Environment},
+  journal = {Computing in Science \& Engineering},
+  volume  = {9},
+  number  = {3},
+  pages   = {90--95},
+  year    = {2007},
+  doi     = {10.1109/MCSE.2007.55}
+}
+
+@inproceedings{Paszke2019,
+  author    = {Paszke, Adam and Gross, Sam and Massa, Francisco and
+               Lerer, Adam and Bradbury, James and Chanan, Gregory and
+               Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and
+               Antiga, Luca and Desmaison, Alban and K{\"o}pf, Andreas and
+               Yang, Edward and DeVito, Zachary and Raison, Martin and
+               Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and
+               Fang, Lu and Bai, Junjie and Chintala, Soumith},
+  title     = {{PyTorch}: An Imperative Style, High-Performance Deep Learning
+               Library},
+  booktitle = {Advances in Neural Information Processing Systems 32},
+  pages     = {8024--8035},
+  year      = {2019}
+}
+
+
+% ===========================================================================
+% SOFTWARE COMPARISONS -- ALL UNVERIFIED
+%
+% These back the Related Work section, which is the part of the paper a
+% reviewer is most likely to check. Install each package and take the
+% citation the project itself asks for, then delete the note field.
+%
+%   pip install pymcdm scikit-criteria pyDecision scikit-fuzzy simpful
+%
+% While you are there, confirm what each one actually does. If any of them
+% already chains fuzzy AHP to PROMETHEE, the Related Work paragraph must say
+% so explicitly rather than leave it to be discovered.
+% ===========================================================================
+
+@article{Wieckowski2023,
+  author  = {Wi{\k{e}}ckowski, Jakub and Kizielewicz, Bart{\l}omiej and
+             Shekhovtsov, Andrii and Sa{\l}abun, Wojciech},
+  title   = {pymcdm---The universal library for solving multi-criteria
+             decision-making problems},
+  journal = {SoftwareX},
+  year    = {2023},
+  note    = {UNVERIFIED -- confirm authors, volume, article number and DOI}
+}
+
+@misc{Cabral2016,
+  author = {Cabral, Juan B. and Luczywo, N{\'a}dia A. and
+            Zanazzi, Jos{\'e} L.},
+  title  = {scikit-criteria: A collection of multiple criteria decision
+            analysis methods},
+  year   = {2016},
+  note   = {UNVERIFIED -- confirm the venue and canonical citation}
+}
+
+@misc{Pereira2022,
+  author = {Pereira, Valdecy},
+  title  = {{pyDecision}: A {P}ython library for multi-criteria decision
+            analysis},
+  note   = {UNVERIFIED -- confirm author list, year and canonical citation}
+}
+
+@misc{Warner2019,
+  author = {Warner, Joshua and Sexauer, Jason and {scikit-fuzzy} and
+            Twmeggs and others},
+  title  = {scikit-fuzzy: Fuzzy logic toolkit for {SciPy}},
+  note   = {UNVERIFIED -- use the Zenodo record for the version you tested}
+}
+
+@article{Spolaor2020,
+  author  = {Spolaor, Simone and Fuchs, Caro and Cazzaniga, Paolo and
+             Kaymak, Uzay and Besozzi, Daniela and Nobile, Marco S.},
+  title   = {Simpful: A User-Friendly {P}ython Library for Fuzzy Logic},
+  journal = {International Journal of Computational Intelligence Systems},
+  year    = {2020},
+  note    = {UNVERIFIED -- confirm volume, pages and DOI}
+}
