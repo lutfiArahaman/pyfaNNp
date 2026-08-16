@@ -167,7 +167,7 @@ class DecisionPipeline:
         decision_matrix,
         alternatives=None,
         criteria=None,
-    ) -> "DecisionPipeline":
+    ) -> DecisionPipeline:
         """Derive weights, compute exact flows and train the surrogate.
 
         Parameters

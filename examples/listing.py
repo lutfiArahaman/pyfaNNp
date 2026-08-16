@@ -16,7 +16,7 @@ at the bottom of this file.
 
 import numpy as np
 
-from pyfap import ANNSurrogate, DecisionPipeline, FAHP, Promethee
+from pyfap import FAHP, ANNSurrogate, DecisionPipeline, Promethee
 from pyfap.datasets import load_demo
 from pyfap.preprocessing import minmax_normalize
 

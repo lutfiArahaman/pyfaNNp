@@ -68,7 +68,7 @@ class ANNSurrogate:
 
     # ------------------------------------------------------------------ API
 
-    def fit(self, X, y) -> "ANNSurrogate":
+    def fit(self, X, y) -> ANNSurrogate:
         """Fit the surrogate on criterion vectors ``X`` and net flows ``y``."""
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float).ravel()

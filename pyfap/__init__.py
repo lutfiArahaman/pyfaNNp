@@ -39,16 +39,16 @@ from .sensitivity import StabilityReport, rank_stability
 __version__ = "0.1.0"
 
 __all__ = [
+    "FAHP",
     "ANNSurrogate",
     "DecisionPipeline",
     "DecisionResult",
-    "FAHP",
     "Promethee",
     "PrometheeFlows",
     "StabilityReport",
+    "__version__",
     "defuzzify",
     "from_saaty",
     "minmax_normalize",
     "rank_stability",
-    "__version__",
 ]

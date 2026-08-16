@@ -2,9 +2,9 @@ import numpy as np
 import pytest
 
 from pyfap import (
+    FAHP,
     ANNSurrogate,
     DecisionPipeline,
-    FAHP,
     Promethee,
     minmax_normalize,
     rank_stability,

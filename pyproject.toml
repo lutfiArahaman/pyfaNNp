@@ -52,3 +52,9 @@ addopts = "-q"
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint.per-file-ignores]
+# The block reproducing the paper listing accesses result attributes without
+# doing anything with them, to show what the result object exposes. That is
+# the point of the listing, so B018 (useless expression) does not apply.
+"examples/listing.py" = ["B018"]

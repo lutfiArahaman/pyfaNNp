@@ -18,7 +18,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-__all__ = ["Promethee", "PrometheeFlows", "PREFERENCE_FUNCTIONS"]
+__all__ = ["PREFERENCE_FUNCTIONS", "Promethee", "PrometheeFlows"]
 
 PREFERENCE_FUNCTIONS = (
     "usual",

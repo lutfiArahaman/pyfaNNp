@@ -184,8 +184,8 @@ class FAHP:
 
 def _degree_of_possibility(si: np.ndarray, sj: np.ndarray) -> float:
     """V(S_i >= S_j) for triangular fuzzy numbers ``si``, ``sj``."""
-    li, mi, ui = si
-    lj, mj, uj = sj
+    _li, mi, ui = si
+    lj, mj, _uj = sj
 
     if mi >= mj:
         return 1.0

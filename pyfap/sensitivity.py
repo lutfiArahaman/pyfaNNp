@@ -49,15 +49,17 @@ class StabilityReport:
         width = max(len(str(x)) for x in labels)
 
         lines = [
-            f"rank reversal rate: {self.rank_reversal_rate:.1%} "
-            f"of {self.ranks.shape[0]} simulations",
+            (
+                f"rank reversal rate: {self.rank_reversal_rate:.1%} "
+                f"of {self.ranks.shape[0]} simulations"
+            ),
             "",
             f"{'alternative':<{width}}  mean rank  P(rank 1)  modal rank",
         ]
         for i, label in enumerate(labels):
             modal = int(np.argmax(self.rank_counts[i])) + 1
             lines.append(
-                f"{str(label):<{width}}  {self.mean_rank[i]:>9.2f}  "
+                f"{label!s:<{width}}  {self.mean_rank[i]:>9.2f}  "
                 f"{self.top1_frequency[i]:>9.1%}  {modal:>10d}"
             )
         return "\n".join(lines)
