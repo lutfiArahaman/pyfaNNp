@@ -209,36 +209,48 @@ the "the pipeline is the contribution" argument better than prose can.
 
 # Example
 
-To illustrate how the coupled pipeline differs from the conventional
-two-stage analysis, Figure 1 contrasts pyFAP with a fuzzy AHP and PROMETHEE
-workflow that omits the surrogate. The demonstration uses
-<BENCHMARK DATASET: n alternatives, m criteria, cite the source>, a
-published decision problem for which the original weights and ranking are
-available, so that the comparison is reproducible and independent of any
-single study area.
-
-The top panel of Figure 1 shows the net flows produced by each configuration.
-<STATE THE RESULT: where the orderings agree, where they diverge, and the
-mechanism that produces the divergence. Name specific alternatives.>
-
-The bottom panel plots the distribution of each alternative's rank across
-1,000 Monte Carlo perturbations of the derived weights.
-<STATE THE RESULT: which alternatives hold their position under perturbation
-and which do not. This panel is the argument for scripting the analysis:
-it cannot be produced by a manual workflow at reasonable cost.>
+Figure 1 illustrates what the pipeline makes visible that a manual workflow
+does not. It is produced by `examples/figure1.py`, which CI re-runs on every
+change.
 
 <!--
-Figure 1 must not be a map. Two panels, one figure, following the PySGN
-pattern of method-versus-baseline on top and a distributional diagnostic
-below. If you adopt coupling (c), consider replacing the bottom panel with
-Spearman rho between surrogate-predicted and exact net flow against training
-set size, alongside wall-clock cost - that evidences the coupling directly.
+DATASET: the figure currently uses pyfap.datasets.load_demo(), which is
+SYNTHETIC data invented for the scaffold. The numbers quoted below are real
+outputs of that data, recorded so the argument's shape is fixed, but they
+must be regenerated on a published benchmark before submission and the
+sentence below must name and cite it. Do not present the synthetic problem
+as a benchmark.
 -->
 
-![Comparison of the conventional fuzzy AHP-PROMETHEE workflow (left) and the
-coupled pyFAP pipeline (right): net flows per alternative (top) and rank
-distributions under 1,000 perturbations of the criterion weights
-(bottom).\label{fig:example}](figures/figure1.png)
+The top panel reports the PROMETHEE II net flows for six alternatives under
+the two weight-derivation methods the package offers. The methods disagree
+on the leading alternative: extent analysis ranks S1 first, the geometric
+mean ranks S4 first, and the two orderings agree on only the last place.
+The mechanism is visible in the weights. Extent analysis assigns the fourth
+criterion a weight of exactly zero — a documented property of the method
+rather than a statement that the criterion is irrelevant — so the ranking it
+produces is effectively a three-criterion ranking, while the geometric mean
+retains all four.
+
+The bottom panels plot the distribution of each alternative's rank across
+1,000 Monte Carlo perturbations of the derived weights, drawn at a relative
+standard deviation of 10%, one panel per method. The complete ordering
+changes in 71% of runs under extent analysis and 91% under the geometric
+mean. Some positions are robust — one alternative holds last place in 94% of
+runs — but the leading position is not: under the geometric mean it is taken
+by three different alternatives across the simulations, none of them in a
+majority. A workflow that reports a single ordering would present the
+point estimate with no indication that it is this fragile, and the
+perturbation study that reveals it is only affordable because the analysis
+is one scripted object.
+
+![PROMETHEE II net flows per alternative under Chang's extent analysis and
+Buckley's geometric mean (top), and the distribution of each alternative's
+rank across 1,000 Monte Carlo perturbations of the derived weights, one
+panel per method (bottom). The two methods disagree on the leading
+alternative, and neither ordering survives perturbation of the weights
+within the imprecision the fuzzy judgements already
+express.\label{fig:example}](figures/figure1.png)
 
 Correctness of the individual components is verified against the worked
 examples published in the original method papers; the test suite reproduces

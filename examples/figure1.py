@@ -42,12 +42,12 @@ import matplotlib
 
 matplotlib.use("Agg")  # headless: this runs in CI
 
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
 
-from pyfap import FAHP, DecisionPipeline, Promethee  # noqa: E402
-from pyfap.datasets import load_demo  # noqa: E402
-from pyfap.preprocessing import minmax_normalize  # noqa: E402
+from pyfap import FAHP, DecisionPipeline, Promethee
+from pyfap.datasets import load_demo
+from pyfap.preprocessing import minmax_normalize
 
 # Okabe & Ito (2008), "Color Universal Design" -- safe under deuteranopia,
 # protanopia and tritanopia.
