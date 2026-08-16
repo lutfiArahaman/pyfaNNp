@@ -36,8 +36,8 @@ examples = ["pandas>=1.4", "matplotlib>=3.5"]
 dev = ["pytest>=7.0", "pandas>=1.4", "matplotlib>=3.5", "ruff>=0.4"]
 
 [project.urls]
-Homepage = "https://github.com/<USER>/pyfaNNp"
-Repository = "https://github.com/<USER>/pyfaNNp"
+Homepage = "https://github.com/lutfiArahaman/pyfaNNp"
+Repository = "https://github.com/lutfiArahaman/pyfaNNp"
 
 [tool.setuptools.packages.find]
 include = ["pyfap*"]
