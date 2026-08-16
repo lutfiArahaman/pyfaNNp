@@ -1,5 +1,7 @@
 # pyFAP
 
+[![CI](https://github.com/lutfiArahaman/pyfaNNp/actions/workflows/ci.yml/badge.svg)](https://github.com/lutfiArahaman/pyfaNNp/actions/workflows/ci.yml)
+
 Coupled fuzzy AHP, neural network and PROMETHEE decision analysis, as a single
 scripted pipeline.
 
@@ -103,7 +105,11 @@ Required before this supports the claims in `paper.md`:
       held-out split as a function of training size, with wall-clock cost.
 - [ ] **Check the Related Work claims.** Install `pymcdm`,
       `scikit-criteria` and `pyDecision` and confirm what each already does.
-- [ ] Choose a license, add CI, archive a release for a DOI.
+- [ ] Archive a release for a DOI (Zenodo), once the above holds.
+
+CI runs the test suite on Python 3.10–3.13 (plus Windows on 3.12) and
+executes `examples/listing.py`, so the code listing printed in the paper
+cannot silently drift from the API.
 
 ## References
 
