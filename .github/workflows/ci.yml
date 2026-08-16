@@ -66,6 +66,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[examples]"
 
+      - name: Generate the architecture diagram
+        run: python examples/architecture.py
+
       - name: Generate Figure 1
         run: python examples/figure1.py
 
