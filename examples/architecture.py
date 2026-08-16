@@ -118,7 +118,7 @@ def draw(path_stem):
     )
 
     # Stages ------------------------------------------------------------
-    fahp_left, fahp_right = box(
+    fahp_left, _fahp_right = box(
         ax, 5.9, 5.4, 3.0,
         "FAHP", "extent analysis or\ngeometric mean", BLUE,
     )

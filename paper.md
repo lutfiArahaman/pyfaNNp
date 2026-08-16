@@ -158,7 +158,18 @@ without decision semantics.
 
 # Software Description
 
-pyFAP is organised as five modules and one pipeline object.
+pyFAP is organised as five modules and one pipeline object, shown in
+Figure 1. Each module is usable on its own; what the package adds beyond
+the individual methods, all of which are published elsewhere, is the
+contract between them.
+
+![Architecture. Expert judgements and the decision matrix enter from the
+left; the weight vector derived by `FAHP` is what couples the first stage to
+the second; the outranking flows produced by `Promethee` are in turn the
+training target for `ANNSurrogate` and the quantity `rank_stability`
+recomputes under perturbed weights. The dashed enclosure marks what
+`DecisionPipeline` composes into a single fitted
+object.\label{fig:architecture}](figures/architecture.png)
 
 `fahp` constructs triangular fuzzy pairwise comparison matrices from
 linguistic scales, derives weights by extent analysis [@Chang1996] or by the
@@ -204,11 +215,10 @@ result.stability(n=1000)  # rank distribution under perturbed weights
 <!--
 Add a second, shorter listing showing the components used independently -
 this is what demonstrates the package is a library and not one script.
-Add the architecture diagram (boxes and arrows, judgements -> weights ->
-surrogate -> flows -> stability). Keep it schematic; it carries the "the
-pipeline is the contribution" argument better than prose can. If it is
-placed above, it becomes Figure 2 and the scaling figure below becomes
-Figure 3 - renumber the references in the next subsection.
+
+Figure numbering, if you insert or move anything: 1 architecture,
+2 the example, 3 the surrogate. All three regenerate in CI from
+examples/architecture.py, examples/figure1.py and examples/scaling.py.
 -->
 
 ## The neural surrogate
@@ -231,12 +241,12 @@ and if the remaining alternatives are drawn independently from some
 population, that average is an unbiased estimator of $\mathbb{E}_b[\pi(a,b)]$
 for every $n$. The surrogate is therefore fitting a well-defined function of
 a criterion vector — its expected preference against the population — rather
-than memorising one particular set. Figure 2(a) confirms this empirically:
+than memorising one particular set. Figure 3(a) confirms this empirically:
 the standard deviation of the flow estimate falls with a fitted log-log
 slope of $-0.591$, against the $-0.5$ that an average of independent terms
 predicts.
 
-Figure 2(b) reports agreement between the surrogate and the exact outranking
+Figure 3(b) reports agreement between the surrogate and the exact outranking
 on 2,000 unseen alternatives. Rank correlation exceeds 0.98 when the network
 is fitted on only 25 alternatives and reaches 0.999 at 1,000. Agreement at
 the top of the ranking is weaker, and is the practical limit of the method:
@@ -244,7 +254,7 @@ the proportion of the exact top 50 that the surrogate also places in its top
 50 rises from 70% to 88% across the same range. Where the identity of the
 leading alternatives is what matters, the exact outranking should be run.
 
-Figure 2(c) gives the cost, charging the surrogate in full for the exact
+Figure 3(c) gives the cost, charging the surrogate in full for the exact
 outranking of its own training subsample. The two approaches cross at
 roughly 1,055 alternatives, beyond which the quadratic term dominates. The
 absolute times at that point are small — a fraction of a second either way —
@@ -271,7 +281,7 @@ with the crossover marked.\label{fig:scaling}](figures/scaling.png)
 
 # Example
 
-Figure 1 illustrates what the pipeline makes visible that a manual workflow
+Figure 2 illustrates what the pipeline makes visible that a manual workflow
 does not. It is produced by `examples/figure1.py`, which CI re-runs on every
 change.
 
