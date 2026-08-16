@@ -26,6 +26,8 @@ the tolerance to make it pass.
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import pytest
 
@@ -176,9 +178,12 @@ class TestBransVincke1985:
 
 
 def test_validation_status_is_reported():
-    """Always runs. Fails nothing, but prints what is still unvalidated.
+    """Always runs. Fails nothing, but warns about what is still unvalidated.
 
-    Remove this test once all three sources are transcribed.
+    A warning rather than a print, so the notice survives into pytest's
+    warnings summary and CI logs instead of being swallowed with the captured
+    stdout of a passing test. Remove this test once all three sources are
+    transcribed.
     """
     pending = [
         name
@@ -190,8 +195,10 @@ def test_validation_status_is_reported():
         if value is None
     ]
     if pending:
-        print(
-            "\nNOT YET VALIDATED against published worked examples:\n  - "
-            + "\n  - ".join(pending)
-            + "\nSee tests/test_published.py for how to fill these in."
+        warnings.warn(
+            "NOT YET VALIDATED against published worked examples: "
+            + "; ".join(pending)
+            + ". See tests/test_published.py for how to fill these in.",
+            UserWarning,
+            stacklevel=1,
         )

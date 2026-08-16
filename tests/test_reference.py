@@ -26,6 +26,15 @@ import pytest
 
 from pyfap import FAHP, Promethee, from_saaty
 
+PREFERENCE_KINDS = (
+    "usual",
+    "u-shape",
+    "v-shape",
+    "level",
+    "linear",
+    "gaussian",
+)
+
 # ---------------------------------------------------------------------------
 # Naive reference implementations. Slow, loop-based, formula-literal.
 # ---------------------------------------------------------------------------
@@ -177,9 +186,7 @@ def random_fuzzy_matrix(rng, n):
 
 
 class TestPrometheeAgainstReference:
-    KINDS = ["usual", "u-shape", "v-shape", "level", "linear", "gaussian"]
-
-    @pytest.mark.parametrize("kind", KINDS)
+    @pytest.mark.parametrize("kind", PREFERENCE_KINDS)
     @pytest.mark.parametrize("seed", range(4))
     def test_matches_naive_single_preference(self, kind, seed):
         rng = np.random.default_rng(seed)
@@ -209,7 +216,10 @@ class TestPrometheeAgainstReference:
 
         X = rng.random((n_alt, n_crit)) * 20.0 - 5.0
         w = rng.random(n_crit) + 0.05
-        kinds = [self.KINDS[rng.integers(len(self.KINDS))] for _ in range(n_crit)]
+        kinds = [
+            PREFERENCE_KINDS[rng.integers(len(PREFERENCE_KINDS))]
+            for _ in range(n_crit)
+        ]
         qs = list(rng.random(n_crit) * 1.5)
         ps = [q + 0.5 + rng.random() * 3.0 for q in qs]
         ss = list(rng.random(n_crit) * 2.0 + 0.5)
