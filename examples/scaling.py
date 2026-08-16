@@ -423,12 +423,21 @@ def main():
     )
 
     print("\n--- numbers for the paper ---")
-    first, last = convergence[0], convergence[-1]
-    ratio = first["std"] / last["std"] if last["std"] > 0 else float("nan")
-    expected = np.sqrt(last["n"] / first["n"])
+
+    # Report the fitted log-log slope rather than an endpoint ratio: the
+    # smallest set sizes are noisy and boundary-affected, so anchoring on
+    # them misstates the rate. The prediction is a slope of -1/2.
+    ns = np.array([r["n"] for r in convergence], dtype=float)
+    sds = np.array([r["std"] for r in convergence], dtype=float)
+    slope, _ = np.polyfit(np.log(ns), np.log(sds), 1)
+    print(f"convergence: fitted slope {slope:+.3f} (n^(-1/2) predicts -0.500)")
+    tail = convergence[1:]
+    ratio = tail[0]["std"] / tail[-1]["std"]
+    expected = np.sqrt(tail[-1]["n"] / tail[0]["n"])
     print(
-        f"spread falls {ratio:.1f}x from n={first['n']} to n={last['n']}; "
-        f"n^(-1/2) predicts {expected:.1f}x"
+        f"  excluding the smallest set: spread falls {ratio:.1f}x from "
+        f"n={tail[0]['n']} to n={tail[-1]['n']}; n^(-1/2) predicts "
+        f"{expected:.1f}x"
     )
     for row in fidelity:
         print(
@@ -446,6 +455,16 @@ def main():
             f"surrogate {match[0]['seconds']:.3f} s "
             f"({biggest['seconds'] / match[0]['seconds']:.1f}x)"
         )
+
+    # Memory is the harder limit than time: the exact outranking materialises
+    # an N-by-N preference matrix, so it stops being possible before it stops
+    # being fast.
+    largest = surrogate_rows[-1]["n"]
+    exact_bytes = 8.0 * largest**2
+    print(
+        f"at N={largest:,}: the exact preference matrix alone would need "
+        f"{exact_bytes / 2**30:,.1f} GiB; the surrogate needs O(N)."
+    )
 
 
 if __name__ == "__main__":
