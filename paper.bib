@@ -184,50 +184,64 @@
 
 
 % ===========================================================================
-% SOFTWARE COMPARISONS -- ALL UNVERIFIED
+% SOFTWARE COMPARISONS
 %
-% These back the Related Work section, which is the part of the paper a
-% reviewer is most likely to check. Install each package and take the
-% citation the project itself asks for, then delete the note field.
+% Version, home page and (where the distribution declares one) author were
+% read from the installed packages on 16 August 2026 by
+% tools/survey_related_work.py. The full record is in
+% docs/related-work-survey.md.
 %
-%   pip install pymcdm scikit-criteria pyDecision scikit-fuzzy simpful
+% These are software citations, and usable as they stand. Several of these
+% projects also have an accompanying journal article that they would rather
+% be cited by; where a `journal` field appears below it could not be
+% confirmed here and carries a note. Check each project's README or
+% CITATION.cff and prefer the article if one exists.
 %
-% While you are there, confirm what each one actually does. If any of them
-% already chains fuzzy AHP to PROMETHEE, the Related Work paragraph must say
-% so explicitly rather than leave it to be discovered.
+% Cite the version surveyed, not "latest" -- the Related Work claims are
+% version-specific and these packages move.
 % ===========================================================================
 
-@article{Wieckowski2023,
+@software{Wieckowski2023,
   author  = {Wi{\k{e}}ckowski, Jakub and Kizielewicz, Bart{\l}omiej and
              Shekhovtsov, Andrii and Sa{\l}abun, Wojciech},
-  title   = {pymcdm---The universal library for solving multi-criteria
-             decision-making problems},
-  journal = {SoftwareX},
-  year    = {2023},
-  note    = {UNVERIFIED -- confirm authors, volume, article number and DOI}
+  title   = {{pymcdm}: Python library for Multi-Criteria Decision-Making},
+  version = {1.4.0},
+  url     = {https://github.com/kotbaton/pymcdm},
+  year    = {2026},
+  note    = {Version 1.4.0 surveyed. A SoftwareX article describing pymcdm
+             is believed to exist -- confirm the authors, volume, article
+             number and DOI and prefer it over this software entry}
 }
 
-@misc{Cabral2016,
-  author = {Cabral, Juan B. and Luczywo, N{\'a}dia A. and
-            Zanazzi, Jos{\'e} L.},
-  title  = {scikit-criteria: A collection of multiple criteria decision
-            analysis methods},
-  year   = {2016},
-  note   = {UNVERIFIED -- confirm the venue and canonical citation}
+@software{Cabral2016,
+  author  = {Cabral, Juan B. and Luczywo, N{\'a}dia A. and
+             Zanazzi, Jos{\'e} L. and {QuatroPe}},
+  title   = {{scikit-criteria}: Algorithms, methods and techniques for
+             multiple-criteria decision analysis},
+  version = {0.10},
+  url     = {https://scikit-criteria.quatrope.org/},
+  year    = {2026},
+  note    = {Version 0.10 surveyed. Confirm the project's preferred citation}
 }
 
-@misc{Pereira2022,
-  author = {Pereira, Valdecy},
-  title  = {{pyDecision}: A {P}ython library for multi-criteria decision
-            analysis},
-  note   = {UNVERIFIED -- confirm author list, year and canonical citation}
+@software{Pereira2022,
+  author  = {Pereira, Valdecy},
+  title   = {{pyDecision}: A {MCDA} library},
+  version = {5.1.1},
+  url     = {https://github.com/Valdecy/pyDecisions},
+  year    = {2026},
+  note    = {Version 5.1.1 surveyed. Confirm the project's preferred
+             citation}
 }
 
-@misc{Warner2019,
-  author = {Warner, Joshua and Sexauer, Jason and {scikit-fuzzy} and
-            Twmeggs and others},
-  title  = {scikit-fuzzy: Fuzzy logic toolkit for {SciPy}},
-  note   = {UNVERIFIED -- use the Zenodo record for the version you tested}
+@software{Warner2019,
+  author  = {Warner, Joshua and Sexauer, Jason and others},
+  title   = {{scikit-fuzzy}: Fuzzy logic toolkit for {SciPy}},
+  version = {0.5.0},
+  url     = {https://github.com/scikit-fuzzy/scikit-fuzzy},
+  year    = {2026},
+  note    = {Version 0.5.0 surveyed. Prefer the Zenodo record for this
+             version if one exists}
 }
 
 @article{Spolaor2020,
@@ -236,5 +250,6 @@
   title   = {Simpful: A User-Friendly {P}ython Library for Fuzzy Logic},
   journal = {International Journal of Computational Intelligence Systems},
   year    = {2020},
-  note    = {UNVERIFIED -- confirm volume, pages and DOI}
+  note    = {Version 2.12.0 surveyed. UNVERIFIED -- confirm volume, pages
+             and DOI}
 }

@@ -107,8 +107,12 @@ Required before this supports the claims in `paper.md`:
 - [ ] **Establish the surrogate's value empirically.** Six alternatives
       cannot demonstrate it. Show Spearman ρ against exact flows on a
       held-out split as a function of training size, with wall-clock cost.
-- [ ] **Check the Related Work claims.** Install `pymcdm`,
-      `scikit-criteria` and `pyDecision` and confirm what each already does.
+- [x] **Check the Related Work claims.** Done 16 August 2026; see
+      [docs/related-work-survey.md](docs/related-work-survey.md). Headline:
+      `pyDecision` already provides both fuzzy AHP and PROMETHEE, so the
+      contribution is the composition and the surrogate, not the
+      availability of the methods. Re-run
+      `tools/survey_related_work.py` before submission if time has passed.
 - [ ] Archive a release for a DOI (Zenodo), once the above holds.
 
 CI runs the test suite on Python 3.10–3.13 (plus Windows on 3.12) and

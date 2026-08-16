@@ -114,25 +114,35 @@ re-execution places the analysis beyond what a manual workflow can support.
 
 # Related Work
 
-Several Python packages implement multi-criteria decision methods, but their
-focus is on providing methods as independent routines rather than on
-composing them. `pymcdm` and `scikit-criteria` offer broad collections of
-normalisations, weighting schemes and ranking methods, and `pyDecision`
-implements a wide range of AHP and PROMETHEE variants including fuzzy
-formulations [@Wieckowski2023; @Cabral2016; @Pereira2022]. These are
-mature and well-tested libraries, and pyFAP does not attempt to replace them.
-They do, however, leave the analyst to wire the stages together: there is no
-shared representation carried from weight derivation through to outranking,
-no propagation of the uncertainty expressed in the fuzzy judgements into the
-final ranking, and no machine-learning component.
+Both of the decision-analytic methods pyFAP couples are already available in
+Python, and one package provides both. The comparison below was produced by
+inspecting installed packages rather than their documentation; the script is
+in the repository and the full record, with versions, is in
+`docs/related-work-survey.md`.
 
-<!--
-VERIFY THIS PARAGRAPH BEFORE SUBMITTING. Install pymcdm, scikit-criteria and
-pyDecision and confirm exactly what each provides. If one of them already
-chains fuzzy AHP to PROMETHEE, this paragraph must concede it explicitly and
-the contribution must rest on the surrogate and the pipeline abstraction.
-A reviewer will run this check.
--->
+`pyDecision` is the closest existing work. It provides `fuzzy_ahp_method`
+alongside PROMETHEE I to VI and GAIA, so neither stage of the analysis is
+novel [@Pereira2022]. They are exposed as independent functions over plain
+arrays: each takes a dataset and returns a tuple, and nothing carries the
+weights derived by the first into the weight argument of the second, retains
+the consistency ratio alongside the ranking it produced, or re-executes the
+pair under altered judgements. That structure is the analyst's to supply,
+and supplying it by hand is the practice this package is meant to replace.
+
+`pymcdm` provides PROMETHEE II with five preference functions, a crisp AHP
+weighting method with consistency checking, and a `param_sensitivity` helper
+that sweeps one named method parameter across a list of supplied values
+[@Wieckowski2023]. Its AHP is not fuzzy, so the vagueness of the elicited
+judgements is not represented; and sweeping a single parameter answers a
+different question from sampling the weight vector, which is what determines
+whether a ranking survives the imprecision behind its weights.
+
+`scikit-criteria` offers a large collection of aggregation methods —
+TOPSIS, VIKOR, ELECTRE, MOORA and others — together with a pipeline
+abstraction and a rank-reversal module [@Cabral2016]. It implements neither
+AHP nor PROMETHEE. It is worth noting explicitly that composition and
+rank-reversal analysis are therefore not themselves novel; what is
+particular here is the set of methods composed.
 
 Fuzzy logic libraries such as `scikit-fuzzy` and `simpful` provide general
 machinery for membership functions and fuzzy inference
@@ -148,13 +158,15 @@ preference functions or outranking relations, and cannot consume expert
 judgement in its elicited form. A model fitted directly to a decision matrix
 returns a prediction, not a justifiable ordering.
 
-By contrast, pyFAP treats the composition itself as the object of interest.
-It carries fuzzy judgements, derived weights, the decision matrix and the
-outranking flows in one structure, exposes the pipeline as a single
-fittable estimator, and makes the sensitivity of the ranking to its inputs a
-first-class output. Thus pyFAP fills a gap between libraries that implement
-decision methods individually and libraries that fit predictive models
-without decision semantics.
+What remains particular to pyFAP is narrower than the absence of these
+methods from Python, and is worth stating precisely. No surveyed package
+couples a *fuzzy* AHP weight derivation to a PROMETHEE outranking through a
+shared representation that carries the judgements, the derived weights, the
+consistency ratio and the resulting flows in one object; and none contains
+any machine-learning component, so none can approximate an outranking it has
+been fitted against. pyFAP fills that gap: it treats the composition as the
+object of interest, and adds to it a surrogate that extends the analysis to
+alternative sets the exact outranking cannot hold.
 
 # Software Description
 
