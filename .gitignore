@@ -1,0 +1,34 @@
+# Third-party material — not ours to redistribute from this repo.
+# The PySGN paper is CC BY 4.0 and freely available from its own DOI;
+# it is kept locally as a drafting reference, not published here.
+*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated figures — regenerate from the example scripts
+figures/*.png
+!figures/.gitkeep
