@@ -39,13 +39,15 @@ instead, keep the same prose and re-label the sections:
 PACKAGE NAME: "pyFAP" (Fuzzy AHP - ANN - PROMETHEE) is a placeholder.
 Search PyPI before committing to it.
 
-ANN COUPLING: this draft assumes coupling (c) - the network is trained as a
-surrogate for the PROMETHEE net flow, so that large alternative sets can be
-ranked without rerunning the full pairwise outranking. If you instead use the
-network to impute missing criterion values (a) or to learn a non-linear
-correction to the linear weighting assumption (b), the passages marked
-[COUPLING] must be rewritten. Do not leave this vague; an unmotivated hybrid
-pipeline is the most common reason this class of paper is rejected.
+ANN COUPLING: settled. The network is a surrogate for the PROMETHEE net
+flow, so large alternative sets can be ranked without running the full
+pairwise outranking. The "The neural surrogate" subsection carries the
+justification and the evidence, from examples/scaling.py. If that decision
+is ever revisited, that subsection and the Statement of Need both change.
+
+LENGTH: with the surrogate subsection this is well past the JOSS ceiling of
+about 1000 words. Either target SoftwareX, or cut Related Work and the
+surrogate subsection down to a paragraph each for JOSS.
 -->
 
 # Summary
@@ -103,12 +105,12 @@ pyFAP addresses this gap by providing a tool in which the three stages share
 one data structure and one call. Because the pipeline is a single object,
 the entire analysis can be re-run under perturbed judgements, which makes
 Monte Carlo weight sensitivity a default output rather than a separate
-undertaking. [COUPLING] Because the network is trained against the outranking
-it approximates, alternative sets far larger than those tractable for
-pairwise outranking can be scored at a fraction of the cost. This makes
-pyFAP suitable for studies in which the number of alternatives, the number of
-expert panels, or the need for auditable re-execution places the analysis
-beyond what a manual workflow can support.
+undertaking. And because the network is fitted against the outranking it
+approximates, alternative sets larger than those the pairwise outranking can
+hold in memory can still be scored, at a rank correlation above 0.99 with
+the exact result. This makes pyFAP suitable for studies in which the number
+of alternatives, the number of expert panels, or the need for auditable
+re-execution places the analysis beyond what a manual workflow can support.
 
 # Related Work
 
@@ -202,10 +204,70 @@ result.stability(n=1000)  # rank distribution under perturbed weights
 <!--
 Add a second, shorter listing showing the components used independently -
 this is what demonstrates the package is a library and not one script.
-Add Figure 2: the architecture diagram (boxes and arrows, judgements ->
-weights -> surrogate -> flows -> stability). Keep it schematic; it carries
-the "the pipeline is the contribution" argument better than prose can.
+Add the architecture diagram (boxes and arrows, judgements -> weights ->
+surrogate -> flows -> stability). Keep it schematic; it carries the "the
+pipeline is the contribution" argument better than prose can. If it is
+placed above, it becomes Figure 2 and the scaling figure below becomes
+Figure 3 - renumber the references in the next subsection.
 -->
+
+## The neural surrogate
+
+A reader may reasonably ask what the neural network contributes. On a small
+alternative set it reproduces an outranking that has already been computed
+exactly, which is of no use to anyone. Its purpose lies in a different
+regime. The exact outranking is quadratic in the number of alternatives,
+both in time and in the memory needed to hold the preference matrix, while
+the surrogate is linear in both.
+
+The objection to any such surrogate is that PROMETHEE flows are defined
+relative to the set being ranked, so a network fitted on one set should not
+be expected to generalise to another. The positive flow, however, is an
+average,
+
+$$\phi^{+}(a) = \frac{1}{n-1}\sum_{b \neq a} \pi(a,b),$$
+
+and if the remaining alternatives are drawn independently from some
+population, that average is an unbiased estimator of $\mathbb{E}_b[\pi(a,b)]$
+for every $n$. The surrogate is therefore fitting a well-defined function of
+a criterion vector — its expected preference against the population — rather
+than memorising one particular set. Figure 2(a) confirms this empirically:
+the standard deviation of the flow estimate falls with a fitted log-log
+slope of $-0.591$, against the $-0.5$ that an average of independent terms
+predicts.
+
+Figure 2(b) reports agreement between the surrogate and the exact outranking
+on 2,000 unseen alternatives. Rank correlation exceeds 0.98 when the network
+is fitted on only 25 alternatives and reaches 0.999 at 1,000. Agreement at
+the top of the ranking is weaker, and is the practical limit of the method:
+the proportion of the exact top 50 that the surrogate also places in its top
+50 rises from 70% to 88% across the same range. Where the identity of the
+leading alternatives is what matters, the exact outranking should be run.
+
+Figure 2(c) gives the cost, charging the surrogate in full for the exact
+outranking of its own training subsample. The two approaches cross at
+roughly 1,055 alternatives, beyond which the quadratic term dominates. The
+absolute times at that point are small — a fraction of a second either way —
+and the scaling, not the speed, is the result. Memory is the harder of the
+two limits: at 50,000 alternatives the preference matrix alone would require
+18.6 GiB, so the exact method ceases to be possible before it ceases to be
+fast.
+
+This bounds the claim. For the tens of alternatives typical of a classical
+multi-criteria study, the exact outranking is the right choice and the
+surrogate offers nothing. The coupling earns its place in large-scale
+screening problems — thousands of candidate sites, suppliers or
+configurations — where the alternative set is too large to outrank directly
+and a ranking is still wanted.
+
+![Behaviour of the neural surrogate. (a) The standard deviation of the
+PROMETHEE net flow estimate for a fixed alternative, against the number of
+alternatives it is evaluated among, with the $n^{-1/2}$ rate expected of an
+average over independent draws. (b) Rank correlation and top-50 overlap
+between the surrogate and the exact outranking on 2,000 unseen alternatives,
+as a function of the number used for fitting; error bars span five repeats.
+(c) Wall-clock cost of the exact outranking and of fitting plus prediction,
+with the crossover marked.\label{fig:scaling}](figures/scaling.png)
 
 # Example
 
