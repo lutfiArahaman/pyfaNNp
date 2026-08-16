@@ -1,0 +1,31 @@
+name: Related work survey
+
+# Manual only. This installs third-party packages purely to inspect what
+# they provide, which is not something every push needs to do.
+on:
+  workflow_dispatch:
+
+jobs:
+  survey:
+    name: survey
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the packages under comparison
+        # Continue past a failure: a package that will not install is itself
+        # a finding, and the survey reports it.
+        continue-on-error: true
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymcdm scikit-criteria pyDecision scikit-fuzzy simpful
+
+      - name: Record resolved versions
+        run: pip freeze
+
+      - name: Survey
+        run: python tools/survey_related_work.py
