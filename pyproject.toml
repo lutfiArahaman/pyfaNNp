@@ -64,3 +64,9 @@ known-local-folder = ["_style"]
 # doing anything with them, to show what the result object exposes. That is
 # the point of the listing, so B018 (useless expression) does not apply.
 "examples/listing.py" = ["B018"]
+
+# The survey and cross-check scripts probe third-party packages that may
+# fail to import, fail to call, or raise anything at all. Catching broadly
+# and reporting is the intended behaviour: a package that breaks is a
+# finding to print, not a reason to abort the run.
+"tools/*.py" = ["BLE001"]
