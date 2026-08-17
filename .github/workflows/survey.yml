@@ -29,3 +29,9 @@ jobs:
 
       - name: Survey
         run: python tools/survey_related_work.py
+
+      - name: Install pyFAP itself
+        run: pip install -e .
+
+      - name: Cross-check against the other implementations
+        run: python tools/crosscheck.py
