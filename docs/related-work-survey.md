@@ -95,6 +95,42 @@ Fuzzy machinery only: `defuzz`, `defuzzify`, `Triangular_MF`,
 derivation, no consistency diagnostics, no outranking. The draft's
 characterisation of these two was accurate.
 
+## Cross-check: do the numbers agree?
+
+Run after the survey, by `tools/crosscheck.py` and then as assertions in
+`tests/test_crosscheck.py`. **54 assertions, all passing.**
+
+| Quantity | Compared against | Result |
+| --- | --- | --- |
+| Fuzzy AHP weights (geometric mean) | `pyDecision.fuzzy_ahp_method` | agree to 1e-10, orders 3–6 |
+| PROMETHEE II net flows | `pyDecision.promethee_ii` | agree to 1e-10, all six preference functions |
+| PROMETHEE II net flows | `pymcdm.methods.PROMETHEE_II` | agree to 1e-10, five preference functions |
+| Mixed per-criterion functions | `pyDecision.promethee_ii` | agree to 1e-10 |
+
+Reading `pyDecision`'s `preference_degree` source confirmed the mapping:
+
+| Brans type | pyFAP | pyDecision | pymcdm |
+| --- | --- | --- | --- |
+| 1 usual | `"usual"` | `t1` | `usual` |
+| 2 U-shape | `"u-shape"` (q) | `t2` | `ushape` |
+| 3 V-shape | `"v-shape"`, q=0 (p) | `t3` | `vshape` |
+| 4 level | `"level"` (q, p) | `t4` | `level` |
+| 5 linear | `"v-shape"`, q>0 (q, p) | `t5` | `vshape_2` |
+| 6 Gaussian | `"gaussian"` (s) | `t6` | — |
+
+`pyDecision` has a seventh function with no counterpart here.
+
+### The one difference found
+
+Consistency ratios do not match, and the reason is two deliberate choices,
+not an error. `pyDecision` defuzzifies with the graded mean
+`(l + 4m + u)/6` and takes lambda-max as the mean of the ratios
+`(Aw)_i / w_i`, the standard AHP approximation. pyFAP defuzzifies with the
+centroid `(l + m + u)/3` and computes the true principal eigenvalue. Both
+are defensible. The weights, which are what the ranking depends on, agree
+exactly. `test_crosscheck.py` pins the discrepancy so it stays a known
+difference.
+
 ## Consequences for the paper
 
 1. **Concede pyDecision up front.** It provides both stages. The contribution

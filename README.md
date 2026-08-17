@@ -125,11 +125,21 @@ cannot silently drift from the API.
 | --- | --- | --- |
 | `test_fahp.py`, `test_promethee.py`, `test_pipeline.py` | Invariants and hand-computed cases: flows sum to zero, weights sum to one, each preference function on a two-alternative problem | Catches gross errors |
 | `test_reference.py` | Differential agreement with loop-based reference implementations written from the formulas, plus closed forms derivable by hand | Catches vectorisation, broadcasting and sign errors |
+| `test_crosscheck.py` | Agreement with `pyDecision` and `pymcdm` to 1e-10 | External: independent implementations of the same specifications |
 | `test_published.py` | Agreement with the printed results of the source papers | **Not yet active** |
 
 The first two establish that the code computes consistently what this
-implementation *believes* the formulas to be. Only the third establishes that
-the belief is right.
+implementation *believes* the formulas to be. The third shows that two other
+people's code, written from the same published specifications, agrees — 54
+assertions covering all six preference functions and the fuzzy AHP weights.
+Only the fourth establishes agreement with the papers themselves.
+
+`test_crosscheck.py` skips unless the comparison packages are installed, so
+ordinary CI does not depend on them:
+
+```bash
+pip install pyDecision pymcdm && pytest tests/test_crosscheck.py -v
+```
 
 ## References
 

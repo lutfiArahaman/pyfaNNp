@@ -336,9 +336,23 @@ alternative, and neither ordering survives perturbation of the weights
 within the imprecision the fuzzy judgements already
 express.\label{fig:example}](figures/figure1.png)
 
-Correctness of the individual components is verified against the worked
-examples published in the original method papers; the test suite reproduces
-the weights of <SOURCE> and the net flows of <SOURCE> to <TOLERANCE>.
+The implementation is cross-validated against two independently written
+packages. On randomly generated problems the criterion weights agree with
+`pyDecision`'s fuzzy AHP to within $10^{-10}$, and the net flows agree with
+both `pyDecision` and `pymcdm` to the same tolerance across all six
+preference functions, including configurations that mix a different function
+and threshold pair on each criterion. The consistency ratios differ, for a
+documented reason: `pyDecision` defuzzifies with the graded mean and takes
+the standard approximation to the principal eigenvalue, where pyFAP
+defuzzifies with the centroid and computes the eigenvalue directly.
+
+<!--
+STILL OUTSTANDING: agreement with the worked examples printed in the source
+papers. tests/test_published.py is staged for it and skips until the values
+are transcribed. Cross-validation against other implementations is strong
+evidence but is not the same claim, and the sentence above is worded to say
+only what is true.
+-->
 
 For applications of coupled fuzzy multi-criteria and machine learning
 analysis to substantive problems, see <ADD 2-3 APPLICATION CITATIONS>.
