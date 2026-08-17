@@ -31,7 +31,12 @@ jobs:
         run: python tools/survey_related_work.py
 
       - name: Install pyFAP itself
-        run: pip install -e .
+        run: pip install -e ".[test]"
 
       - name: Cross-check against the other implementations
         run: python tools/crosscheck.py
+
+      - name: Cross-check as assertions
+        # These skip in ordinary CI, where the comparison packages are not
+        # installed. Here they run for real.
+        run: pytest tests/test_crosscheck.py -v
