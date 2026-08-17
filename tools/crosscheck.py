@@ -150,12 +150,30 @@ def section_promethee():
     except Exception as exc:
         print(f"\n  pyDecision unavailable: {exc!r}")
     else:
-        show_source(promethee_ii, "promethee_ii", lines=45)
-        for codes in (["t5"] * 3, ["t3"] * 3, ["linear"] * 3):
+        show_source(promethee_ii, "promethee_ii", lines=25)
+        try:
+            from pyDecision.algorithm.promethee import preference_degree
+            show_source(preference_degree, "preference_degree", lines=60)
+        except Exception:
+            for candidate in ("promethee_i", "promethee_ii"):
+                try:
+                    module = sys.modules[
+                        getattr(
+                            __import__("pyDecision.algorithm", fromlist=[candidate]),
+                            candidate,
+                        ).__module__
+                    ]
+                    show_source(module.preference_degree, "preference_degree", 60)
+                    break
+                except Exception:
+                    continue
+
+        # The matrix must be an ndarray: promethee_ii reads .shape off it.
+        for codes in (["t5"] * 3, ["t3"] * 3, ["t1"] * 3):
             print(f"\n  attempting F={codes}")
             try:
                 result = promethee_ii(
-                    DECISION.tolist(),
+                    DECISION,
                     W=weights.tolist(),
                     Q=[Q] * 3,
                     S=[0.0] * 3,
@@ -169,6 +187,7 @@ def section_promethee():
                 print(f"    raised {type(exc).__name__}: {exc}")
                 continue
             describe("    result", result)
+            print(f"    column 1 (phi): {np.round(np.asarray(result)[:, 1], 6)}")
             break
 
     # -- pymcdm -------------------------------------------------------------
