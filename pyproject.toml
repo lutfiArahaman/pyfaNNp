@@ -67,6 +67,8 @@ known-local-folder = ["_style"]
 
 # The survey and cross-check scripts probe third-party packages that may
 # fail to import, fail to call, or raise anything at all. Catching broadly
-# and reporting is the intended behaviour: a package that breaks is a
-# finding to print, not a reason to abort the run.
-"tools/*.py" = ["BLE001"]
+# and moving on is the intended behaviour: a submodule that will not import
+# is a finding to report, not a reason to abort the run. S112 is allowed for
+# the same reason -- the loops that skip a failed import already summarise
+# the failures afterwards.
+"tools/*.py" = ["BLE001", "S112"]
